@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (commande(); as commandeRef) {
+      <div>
+        <h2 data-cy="commandeDetailsHeading"><span>Commande</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ commandeRef.id }}</span>
+          </dd>
+          <dt><span>Ref</span></dt>
+          <dd>
+            <span>{{ commandeRef.ref }}</span>
+          </dd>
+          <dt><span>Montant</span></dt>
+          <dd>
+            <span>{{ commandeRef.montant }}</span>
+          </dd>
+          <dt><span>Date Commande</span></dt>
+          <dd>
+            <span>{{ commandeRef.dateCommande | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Etat</span></dt>
+          <dd>
+            <span>{{
+              { null: '', EN_COURS: 'EN_COURS', VALIDER: 'VALIDER', ANNULER: 'ANNULER', LIVRER: 'LIVRER' }[commandeRef.etat ?? 'null']
+            }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/commande', commandeRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

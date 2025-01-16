@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-produit-heading" data-cy="ProduitCreateUpdateHeading">Créer ou éditer un Produit</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let libelleRef = editForm.get('libelle')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_libelle">Libelle</label>
+          <input type="text" class="form-control" name="libelle" id="field_libelle" data-cy="libelle" formControlName="libelle" />
+          @if (libelleRef.invalid && (libelleRef.dirty || libelleRef.touched)) {
+            <div>
+              @if (editForm.get('libelle')?.errors?.required) {
+                <small class="form-text text-danger">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_prixUnitaire">Prix Unitaire</label>
+          <input
+            type="number"
+            class="form-control"
+            name="prixUnitaire"
+            id="field_prixUnitaire"
+            data-cy="prixUnitaire"
+            formControlName="prixUnitaire"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_qte">Qte</label>
+          <input type="number" class="form-control" name="qte" id="field_qte" data-cy="qte" formControlName="qte" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_etat">Etat</label>
+          <select class="form-control" name="etat" formControlName="etat" id="field_etat" data-cy="etat">
+            <option [ngValue]="null"></option>
+            @for (etatProduit of etatProduitValues; track $index) {
+              <option [value]="etatProduit">{{ { null: '', NEUF: 'NEUF', PAS_NEUF: 'PAS_NEUF' }[etatProduit] }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_categorie">Categorie</label>
+          <select
+            class="form-control"
+            id="field_categorie"
+            data-cy="categorie"
+            name="categorie"
+            formControlName="categorie"
+            [compareWith]="compareCategorie"
+          >
+            @if (editForm.get(['categorie'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (categorieOption of categoriesSharedCollection; track $index) {
+              <option [ngValue]="categorieOption">{{ categorieOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['categorie'])!.invalid && (editForm.get(['categorie'])!.dirty || editForm.get(['categorie'])!.touched)) {
+          <div>
+            @if (editForm.get(['categorie'])?.errors?.required) {
+              <small class="form-text text-danger">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

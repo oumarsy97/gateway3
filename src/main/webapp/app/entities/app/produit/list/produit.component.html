@@ -1,0 +1,169 @@
+<div class="container-fluid">
+  <h2 class="mb-4" id="page-heading" data-cy="ProduitHeading">
+    <span>Produits</span>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-secondary" (click)="load()" [disabled]="isLoading">
+        <i class="bi bi-arrow-clockwise" [class.rotate]="isLoading"></i>
+        <span class="ms-2">Actualiser la liste</span>
+      </button>
+
+      <a
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary"
+        [routerLink]="['/produit/new']"
+      >
+        <i class="bi bi-plus-lg"></i>
+        <span class="ms-2">Créer un nouveau Produit</span>
+      </a>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+  <jhi-alert></jhi-alert>
+
+  @if (produits().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <i class="bi bi-exclamation-triangle me-2"></i>
+      <span>Aucun Produit trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive border rounded" id="entities">
+      <table class="table table-hover mb-0" aria-describedby="page-heading">
+        <thead class="table-light">
+        <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+          <th scope="col" jhiSortBy="id" class="text-nowrap">
+            <div class="d-flex align-items-center">
+              <span>ID</span>
+              <i class="bi bi-arrow-down-up ms-1"></i>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="libelle" class="text-nowrap">
+            <div class="d-flex align-items-center">
+              <span>Libelle</span>
+              <i class="bi bi-arrow-down-up ms-1"></i>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="prixUnitaire" class="text-nowrap">
+            <div class="d-flex align-items-center">
+              <span>Prix Unitaire</span>
+              <i class="bi bi-arrow-down-up ms-1"></i>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="qte" class="text-nowrap">
+            <div class="d-flex align-items-center">
+              <span>Quantité</span>
+              <i class="bi bi-arrow-down-up ms-1"></i>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <div class="d-flex align-items-center">
+              <span>Description</span>
+              <i class="bi bi-arrow-down-up ms-1"></i>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="etat" class="text-nowrap">
+            <div class="d-flex align-items-center">
+              <span>État</span>
+              <i class="bi bi-arrow-down-up ms-1"></i>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="categorie.id" class="text-nowrap">
+            <div class="d-flex align-items-center">
+              <span>Catégorie</span>
+              <i class="bi bi-arrow-down-up ms-1"></i>
+            </div>
+          </th>
+          <th scope="col" class="text-end">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (produit of produits(); track trackId(produit)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/produit', produit.id, 'view']" class="text-decoration-none">{{ produit.id }}</a>
+              </td>
+              <td>{{ produit.libelle }}</td>
+              <td>{{ produit.prixUnitaire }} €</td>
+              <td>{{ produit.qte }}</td>
+              <td>{{ produit.description }}</td>
+              <td>
+                <span [class]="produit.etat === 'NEUF' ? 'badge bg-success' : 'badge bg-warning'">
+                  {{ { null: '', NEUF: 'NEUF', PAS_NEUF: 'PAS NEUF' }[produit.etat ?? 'null'] }}
+                </span>
+              </td>
+              <td>
+                @if (produit.categorie) {
+                  <a [routerLink]="['/categorie', produit.categorie.id, 'view']" class="text-decoration-none">
+                    {{ produit.categorie.id }}
+                  </a>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/produit', produit.id, 'view']"
+                    class="btn btn-outline-secondary btn-sm"
+                    data-cy="entityDetailsButton"
+                    title="Voir"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </a>
+
+                  <a
+                    [routerLink]="['/produit', produit.id, 'edit']"
+                    class="btn btn-outline-secondary btn-sm"
+                    data-cy="entityEditButton"
+                    title="Éditer"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </a>
+
+                  <button
+                    type="button"
+                    (click)="delete(produit)"
+                    class="btn btn-outline-danger btn-sm"
+                    data-cy="entityDeleteButton"
+                    title="Supprimer"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
+
+<style>
+  .rotate {
+    animation: rotate 1s linear infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .btn-group .btn {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .table th {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .badge {
+    font-weight: 500;
+    padding: 0.4em 0.7em;
+  }
+</style>

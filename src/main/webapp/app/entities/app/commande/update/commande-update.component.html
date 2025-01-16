@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-commande-heading" data-cy="CommandeCreateUpdateHeading">Créer ou éditer un Commande</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let refRef = editForm.get('ref')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_ref">Ref</label>
+          <input type="text" class="form-control" name="ref" id="field_ref" data-cy="ref" formControlName="ref" />
+          @if (refRef.invalid && (refRef.dirty || refRef.touched)) {
+            <div>
+              @if (editForm.get('ref')?.errors?.required) {
+                <small class="form-text text-danger">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_montant">Montant</label>
+          <input type="number" class="form-control" name="montant" id="field_montant" data-cy="montant" formControlName="montant" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateCommande">Date Commande</label>
+          <div class="input-group">
+            <input
+              id="field_dateCommande"
+              data-cy="dateCommande"
+              type="text"
+              class="form-control"
+              name="dateCommande"
+              ngbDatepicker
+              #dateCommandeDp="ngbDatepicker"
+              formControlName="dateCommande"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateCommandeDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        @let etatRef = editForm.get('etat')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_etat">Etat</label>
+          <select class="form-control" name="etat" formControlName="etat" id="field_etat" data-cy="etat">
+            <option [ngValue]="null"></option>
+            @for (etatCommande of etatCommandeValues; track $index) {
+              <option [value]="etatCommande">
+                {{ { null: '', EN_COURS: 'EN_COURS', VALIDER: 'VALIDER', ANNULER: 'ANNULER', LIVRER: 'LIVRER' }[etatCommande] }}
+              </option>
+            }
+          </select>
+          @if (etatRef.invalid && (etatRef.dirty || etatRef.touched)) {
+            <div>
+              @if (editForm.get('etat')?.errors?.required) {
+                <small class="form-text text-danger">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

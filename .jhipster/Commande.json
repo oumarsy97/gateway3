@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "changelogDate": "20250114084155"
+  },
+  "clientRootFolder": "app",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "ref",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "montant",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "dateCommande",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "etat",
+      "fieldType": "etatCommande",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "EN_COURS,VALIDER,ANNULER,LIVRER"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "app",
+  "microservicePath": "../app",
+  "name": "Commande",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

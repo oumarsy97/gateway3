@@ -1,0 +1,139 @@
+<div class="container-fluid py-4">
+  @if (account(); as accountRef) {
+    <div class="row g-4">
+      <!-- Gestion des Catégories -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="rounded-circle bg-warning bg-opacity-10 p-3 me-3">
+                <span class="bi-tag fs-2 text-warning"></span>
+              </div>
+              <h3 class="card-title h5 mb-0">Catégories</h3>
+            </div>
+            <p class="card-text text-muted">Organisez vos produits par catégories</p>
+            <div class="d-grid">
+              <a routerLink="/categorie" class="btn btn-warning text-white">
+                <span class="bi-chevron-right me-2"></span>Gérer les catégories
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Gestion des Produits -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+                <span class="bi-box fs-2 text-primary"></span>
+              </div>
+              <h3 class="card-title h5 mb-0">Produits</h3>
+            </div>
+            <p class="card-text text-muted">Gérez votre catalogue de produits</p>
+            <div class="d-grid">
+              <a routerLink="/produit" class="btn btn-primary">
+                <span class="bi-chevron-right me-2"></span>Gérer les produits
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gestion des Commandes -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+                <span class="bi-cart fs-2 text-success"></span>
+              </div>
+              <h3 class="card-title h5 mb-0">Commandes</h3>
+            </div>
+            <p class="card-text text-muted">Suivez et gérez les commandes</p>
+            <div class="d-grid">
+              <a routerLink="/commande" class="btn btn-success">
+                <span class="bi-chevron-right me-2"></span>Voir les commandes
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gestion des Utilisateurs -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                <span class="bi-people fs-2 text-info"></span>
+              </div>
+              <h3 class="card-title h5 mb-0">Utilisateurs</h3>
+            </div>
+            <p class="card-text text-muted">Administration des utilisateurs</p>
+            <div class="d-grid">
+              <a routerLink="/admin/user-management" class="btn btn-info text-white">
+                <span class="bi-chevron-right me-2"></span>Gérer les utilisateurs
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  } @else {
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-lg">
+          <div class="card-body text-center p-5">
+            <div class="rounded-circle bg-primary bg-opacity-10 p-4 mx-auto mb-4" style="width: fit-content;">
+              <span class="bi-lock fs-1 text-primary"></span>
+            </div>
+            <h2 class="card-title h3 mb-4">Connexion requise</h2>
+            <p class="card-text text-muted mb-4">
+              Pour accéder à l'application, veuillez vous connecter ou créer un compte.
+            </p>
+
+            <div class="d-grid gap-3 mb-4">
+              <button (click)="login()" class="btn btn-primary btn-lg">
+                <span class="bi-box-arrow-in-right me-2"></span>Se connecter
+              </button>
+              <a routerLink="/account/register" class="btn btn-outline-primary">
+                <span class="bi-person-plus me-2"></span>Créer un compte
+              </a>
+            </div>
+
+            <div class="border-top pt-4">
+              <h5 class="mb-4">Comptes de démonstration</h5>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <div class="card bg-light border-0">
+                    <div class="card-body">
+                      <h6 class="card-title text-primary mb-3">Administrateur</h6>
+                      <div class="text-start">
+                        <p class="mb-2"><strong>Identifiant:</strong><br><code>admin</code></p>
+                        <p class="mb-0"><strong>Mot de passe:</strong><br><code>admin</code></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card bg-light border-0">
+                    <div class="card-body">
+                      <h6 class="card-title text-primary mb-3">Utilisateur</h6>
+                      <div class="text-start">
+                        <p class="mb-2"><strong>Identifiant:</strong><br><code>user</code></p>
+                        <p class="mb-0"><strong>Mot de passe:</strong><br><code>user</code></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

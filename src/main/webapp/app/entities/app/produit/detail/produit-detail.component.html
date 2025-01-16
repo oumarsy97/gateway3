@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (produit(); as produitRef) {
+      <div>
+        <h2 data-cy="produitDetailsHeading"><span>Produit</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ produitRef.id }}</span>
+          </dd>
+          <dt><span>Libelle</span></dt>
+          <dd>
+            <span>{{ produitRef.libelle }}</span>
+          </dd>
+          <dt><span>Prix Unitaire</span></dt>
+          <dd>
+            <span>{{ produitRef.prixUnitaire }}</span>
+          </dd>
+          <dt><span>Qte</span></dt>
+          <dd>
+            <span>{{ produitRef.qte }}</span>
+          </dd>
+          <dt><span>Description</span></dt>
+          <dd>
+            <span>{{ produitRef.description }}</span>
+          </dd>
+          <dt><span>Etat</span></dt>
+          <dd>
+            <span>{{ { null: '', NEUF: 'NEUF', PAS_NEUF: 'PAS_NEUF' }[produitRef.etat ?? 'null'] }}</span>
+          </dd>
+          <dt><span>Categorie</span></dt>
+          <dd>
+            @if (produit()!.categorie) {
+              <div>
+                <a [routerLink]="['/categorie', produit()!.categorie?.id, 'view']">{{ produitRef.categorie?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/produit', produitRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

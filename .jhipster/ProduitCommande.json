@@ -1,0 +1,46 @@
+{
+  "annotations": {
+    "changelogDate": "20250114085026"
+  },
+  "clientRootFolder": "app",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "qte",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixUnitaire",
+      "fieldType": "Double"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "app",
+  "microservicePath": "../app",
+  "name": "ProduitCommande",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "commande",
+      "otherEntityRelationshipName": "produitCommande",
+      "relationshipName": "commande",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "produit",
+      "otherEntityRelationshipName": "produitCommande",
+      "relationshipName": "produit",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,51 @@
+{
+  "annotations": {
+    "changelogDate": "20250113164753"
+  },
+  "clientRootFolder": "app",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "prixUnitaire",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "qte",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "etat",
+      "fieldType": "EtatProduit",
+      "fieldValues": "NEUF,PAS_NEUF"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "app",
+  "microservicePath": "../app",
+  "name": "Produit",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "categorie",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "categorie",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

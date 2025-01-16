@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (produitCommande(); as produitCommandeRef) {
+      <div>
+        <h2 data-cy="produitCommandeDetailsHeading"><span>Produit Commande</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ produitCommandeRef.id }}</span>
+          </dd>
+          <dt><span>Qte</span></dt>
+          <dd>
+            <span>{{ produitCommandeRef.qte }}</span>
+          </dd>
+          <dt><span>Prix Unitaire</span></dt>
+          <dd>
+            <span>{{ produitCommandeRef.prixUnitaire }}</span>
+          </dd>
+          <dt><span>Commande</span></dt>
+          <dd>
+            @if (produitCommande()!.commande) {
+              <div>
+                <a [routerLink]="['/commande', produitCommande()!.commande?.id, 'view']">{{ produitCommandeRef.commande?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Produit</span></dt>
+          <dd>
+            @if (produitCommande()!.produit) {
+              <div>
+                <a [routerLink]="['/produit', produitCommande()!.produit?.id, 'view']">{{ produitCommandeRef.produit?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/produit-commande', produitCommandeRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
